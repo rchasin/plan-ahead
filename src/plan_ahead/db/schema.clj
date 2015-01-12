@@ -18,6 +18,7 @@
   []
   (.exists (file (str db-store ".mv.db"))))
 
+; This table is provided by the sample guestbook app. TODO use or delete it.
 (defn create-users-table
   []
   (sql/db-do-commands
@@ -33,7 +34,22 @@
       [:is_active :boolean]
       [:pass "varchar(100)"])))
 
+(defn create-dances-table
+  []
+  (sql/db-do-commands
+    db-spec
+    (sql/create-table-ddl
+      :dances
+      [:id "INTEGER PRIMARY KEY AUTO_INCREMENT"]
+      [:name "varchar(30)"]
+      [:location "varchar(200)"]
+      [:start_time :time]
+      [:end_time :time]
+      [:is_active :boolean])))
+
 (defn create-tables
   "creates the database tables used by the application"
   []
-  (create-users-table))
+  (create-users-table)
+  (create-dances-table)
+  )

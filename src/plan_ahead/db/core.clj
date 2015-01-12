@@ -22,3 +22,17 @@
   (first (select users
                  (where {:id id})
                  (limit 1))))
+
+(defentity dances)
+
+(defn save-dance
+  [name location start_time end_time]
+  (insert dances
+          (values {:name name
+                   :location location
+                   :start_time start_time
+                   :end_time start_time
+                   :is_active true})))
+
+(defn get-dances []
+  (select dances))
